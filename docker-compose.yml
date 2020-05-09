@@ -1,0 +1,16 @@
+version: '3'
+services:
+  asciinema:
+    image: 'halverneus/static-file-server:latest'
+    ports:
+      - '127.0.0.1:61180:8080'
+    volumes:
+      - './data:/web'
+    environment:
+      - FOLDER=/web
+    labels:
+      traefik.http.routers.asciinema.rule: "Host(`asciinema.hs-ldz.pl`)"
+      traefik.http.routers.asciinema.entrypoints: "web"
+      traefik.http.routers.asciinema-https.rule: "Host(`asciinema.hs-ldz.pl`)"
+      traefik.http.routers.asciinema-https.entrypoints: "websecure"
+      traefik.http.routers.asciinema-https.tls.certresolver: "myresolver"
