@@ -37,18 +37,6 @@
 			asciinemaPlayer.addEventListener('pause', function(e) {
 				audio.pause();
 			});
-			// document.getElementById('player').addEventListener('canplay', function(e) {
-			// 	console.log(e);
-			// })
-			// document.getElementById('player').addEventListener('loadedmetadata', function(e) {
-			// 	console.log(e);
-			// })
-			// document.getElementById('player').addEventListener('loadeddata', function(e) {
-			// 	console.log(e);
-			// })
-			// document.getElementById('player').addEventListener('canplaythrough', function(e) {
-			// 	console.log(e);
-			// })
 			if (startPosition > 0) {
 				document.getElementById('player').addEventListener('canplay', function(e) {
 					console.log(startPosition);
