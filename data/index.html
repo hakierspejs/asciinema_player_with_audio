@@ -1,19 +1,22 @@
 <html>
-<head>
-  <link rel="stylesheet" type="text/css" href="./asciinema-player.css" />
-</head>
-<body>
-				<script src="./asciinema-player.js"></script>
-	<asciinema-player id="player" src="./1588610789.cast"></asciinema-player>
-				<script type="text/javascript">
-		var audio = new Audio('./audio.ogg');
-		audio.currentTime = 25*60 + 5;
-		document.getElementById('player').addEventListener('play', function(e) {
-			audio.play();
-		})
-		document.getElementById('player').addEventListener('pause', function(e) {
-			audio.pause();
-		})
-</script>
-</body>
+	<head>
+		<link rel="stylesheet" type="text/css" href="./vendor/asciinema-player/asciinema-player.css" />
+	</head>
+	<body>
+		<script src="./vendor/asciinema-player/asciinema-player.js"></script>
+		<asciinema-player id="player" src="./records/1588610789.cast"></asciinema-player>
+		<script type="text/javascript">
+			var audio = new Audio('./records/audio.ogg');
+			let offset = 25*60 + 5;
+			document.getElementById('player').addEventListener('play', function(e) {
+				let asciinemaCurrentTime = document.getElementById('player').currentTime;
+				console.log(asciinemaCurrentTime);
+				audio.currentTime = asciinemaCurrentTime + offset;
+				audio.play();
+			})
+			document.getElementById('player').addEventListener('pause', function(e) {
+				audio.pause();
+			})
+		</script>
+	</body>
 </html>
