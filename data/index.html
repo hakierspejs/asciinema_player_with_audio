@@ -6,17 +6,55 @@
 		<script src="./vendor/asciinema-player/asciinema-player.js"></script>
 		<asciinema-player id="player" src="./records/1588610789.cast"></asciinema-player>
 		<script type="text/javascript">
+			function findGetParameter(parameterName) {
+				// stackoverflow copypaste https://stackoverflow.com/questions/5448545/how-to-retrieve-get-parameters-from-javascript
+				var result = null,
+				tmp = [];
+				location.search
+					.substr(1)
+					.split("&")
+					.forEach(function (item) {
+						tmp = item.split("=");
+						if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+					});
+				return result;
+			}
+			//
+			var startPosition = 0;
+			try {
+				startPosition = parseInt(findGetParameter('position'));
+			} catch (e) {
+				console.log(e);
+			}
 			var audio = new Audio('./records/audio.ogg');
+			var asciinemaPlayer = document.getElementById('player');
 			let offset = 25*60 + 5;
-			document.getElementById('player').addEventListener('play', function(e) {
-				let asciinemaCurrentTime = document.getElementById('player').currentTime;
-				console.log(asciinemaCurrentTime);
-				audio.currentTime = asciinemaCurrentTime + offset;
+
+			asciinemaPlayer.addEventListener('play', function(e) {
+				audio.currentTime = this.currentTime + offset;
 				audio.play();
-			})
-			document.getElementById('player').addEventListener('pause', function(e) {
+			});
+			asciinemaPlayer.addEventListener('pause', function(e) {
 				audio.pause();
-			})
+			});
+			// document.getElementById('player').addEventListener('canplay', function(e) {
+			// 	console.log(e);
+			// })
+			// document.getElementById('player').addEventListener('loadedmetadata', function(e) {
+			// 	console.log(e);
+			// })
+			// document.getElementById('player').addEventListener('loadeddata', function(e) {
+			// 	console.log(e);
+			// })
+			// document.getElementById('player').addEventListener('canplaythrough', function(e) {
+			// 	console.log(e);
+			// })
+			if (startPosition > 0) {
+				document.getElementById('player').addEventListener('canplay', function(e) {
+					console.log(startPosition);
+					this.currentTime = startPosition;
+				})
+			}
 		</script>
 	</body>
 </html>
